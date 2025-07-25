@@ -6,10 +6,13 @@ import portfolioLogo from './assets/portfolio.svg'
 import contactLogo from './assets/contact.svg'
 import ImageDisplay from './components/ImageDisplay'
 import NavigationMenu from './components/NavigationMenu'
+import SplashScreen from './components/SplashScreen'
 import type { MenuItem } from './types'
 import './App.css'
 
 function App() {
+  const [showSplash, setShowSplash] = useState(true)
+  
   const menuItems: MenuItem[] = [
     {
       id: 'home',
@@ -44,6 +47,14 @@ function App() {
   ]
 
   const [selectedItem, setSelectedItem] = useState<MenuItem>(menuItems[0])
+
+  const handleSplashComplete = () => {
+    setShowSplash(false)
+  }
+
+  if (showSplash) {
+    return <SplashScreen onComplete={handleSplashComplete} />
+  }
 
   return (
     <div className="app-container">

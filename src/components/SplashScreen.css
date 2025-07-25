@@ -1,0 +1,142 @@
+/* Splash Screen Styles */
+.splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #8bb174;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  font-family: 'Courier New', monospace;
+  overflow: hidden;
+  transition: opacity 0.3s ease-out;
+}
+
+.splash-screen.complete {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.splash-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.gameboy-text {
+  color: #0f380f;
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+  transform: translateY(-100vh);
+  animation: dropDown 3.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.splash-screen.centered .gameboy-text {
+  animation: none;
+  transform: translateY(0);
+}
+
+.text-line {
+  line-height: 1;
+  margin: 0;
+  letter-spacing: 0.1em;
+}
+
+.text-line:first-child {
+  font-size: 4rem;
+  font-weight: 900;
+}
+
+.text-line.small {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 0.2rem;
+  opacity: 0.8;
+}
+
+.gameboy-logo {
+  color: #0f380f;
+  font-size: 1.5rem;
+  font-weight: bold;
+  position: absolute;
+  top: -0.5rem;
+  right: -2rem;
+  opacity: 0;
+  animation: fadeInLogo 0.5s ease-in 3.2s forwards;
+}
+
+/* Scan lines effect for authentic Game Boy feel */
+.scan-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 2px,
+    rgba(15, 56, 15, 0.03) 2px,
+    rgba(15, 56, 15, 0.03) 4px
+  );
+  pointer-events: none;
+}
+
+/* Animations */
+@keyframes dropDown {
+  0% {
+    transform: translateY(-100vh);
+  }
+  70% {
+    transform: translateY(10px);
+  }
+  85% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLogo {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .text-line:first-child {
+    font-size: 3rem;
+  }
+  
+  .text-line.small {
+    font-size: 1rem;
+  }
+  
+  .gameboy-logo {
+    font-size: 1.2rem;
+    right: -1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .text-line:first-child {
+    font-size: 2.5rem;
+  }
+  
+  .text-line.small {
+    font-size: 0.9rem;
+  }
+}
