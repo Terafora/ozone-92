@@ -28,17 +28,18 @@
   width: 100%;
   max-width: 500px;
   height: 60vh;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
   backdrop-filter: blur(10px);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 3px solid rgba(255, 255, 255, 0.3);
   overflow: hidden;
   transition: all 0.3s ease;
+  /* Angular shape like Sonic Mania */
+  clip-path: polygon(30px 0%, 100% 0%, calc(100% - 30px) 100%, 0% 100%);
 }
 
 .main-image {
@@ -143,38 +144,249 @@
   color: #667eea;
 }
 
-/* Responsive design */
+/* Sonic Mania Menu Styles */
+.sonic-menu {
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF6B35 100%) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.sonic-menu::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(255, 255, 255, 0.1) 10px,
+      rgba(255, 255, 255, 0.1) 20px
+    );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.menu-title {
+  font-family: 'Impact', 'Arial Black', sans-serif !important;
+  font-size: 3.5rem !important;
+  font-weight: 900 !important;
+  text-align: center !important;
+  color: #000080 !important;
+  text-shadow: 
+    3px 3px 0px #FFFFFF,
+    6px 6px 0px #FF0000,
+    -2px -2px 0px #FFFF00 !important;
+  margin-bottom: 2rem !important;
+  z-index: 2;
+  position: relative;
+  letter-spacing: 0.1em;
+}
+
+.sonic-nav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-right: 2rem;
+  margin-top: 1rem;
+  height: 60vh;
+  overflow: hidden;
+  mask: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 15%,
+    black 85%,
+    transparent 100%
+  );
+  -webkit-mask: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 15%,
+    black 85%,
+    transparent 100%
+  );
+}
+
+.sonic-item {
+  margin: 2rem 0 !important;
+  padding: 0 !important;
+  background: none !important;
+  border: none !important;
+  min-height: 5rem !important;
+  min-width: 25rem;
+  /* for top right to bottom left listing with diagonal scroll offset */
+  /* Fixed cascade position for X, scroll offset affects Y with diagonal movement */
+  transform: translateX(calc(var(--item-index) * -40px + var(--scroll-offset, 0) * -25px)) translateY(calc(var(--scroll-offset, 0) * 100px)) !important;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55) !important;
+  cursor: pointer;
+  position: relative;
+  opacity: 1;
+}
+
+.sonic-item:hover {
+  transform: translateX(calc(var(--item-index) * -40px - 15px + var(--scroll-offset, 0) * -25px)) translateY(calc(var(--scroll-offset, 0) * 100px - 5px)) scale(1.05) !important;
+}
+
+.sonic-item.active {
+  transform: translateX(calc(var(--item-index) * -40px - 25px + var(--scroll-offset, 0) * -25px)) translateY(calc(var(--scroll-offset, 0) * 100px - 8px)) scale(1.1) !important;
+}
+
+.sonic-item-bg {
+  background: #000;
+  border-radius: 0;
+  padding: 0.8rem 2rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: skewX(-10deg);
+  box-shadow: 
+    inset 0 2px 0 rgba(255, 255, 255, 0.3),
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 0 2px #FFD700;
+  transition: all 0.2s ease;
+  text-align: center;
+  overflow: visible;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 0;
+}
+
+.sonic-item:hover .sonic-item-bg {
+  background: #000;
+  box-shadow: 
+    inset 0 2px 0 rgba(255, 255, 255, 0.3),
+    4px 4px 12px rgba(255, 0, 0, 0.8),
+    0 0 0 2px #FFD700;
+}
+
+.sonic-item.active .sonic-item-bg {
+  background: #000;
+  box-shadow: 
+    inset 0 2px 0 rgba(255, 255, 255, 0.3),
+    4px 4px 12px rgba(255, 0, 0, 0.8),
+    0 0 0 2px #FFD700;
+}
+
+.sonic-title {
+  font-family: 'Impact', 'Arial Black', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: #FFFFFF;
+  text-shadow: 
+    2px 2px 0px #000000,
+    -1px -1px 0px #000000,
+    1px -1px 0px #000000,
+    -1px 1px 0px #000000;
+  letter-spacing: 0.05em;
+  display: block;
+  white-space: nowrap;
+  z-index: 10;
+  transform: skewX(10deg) translateY(-65%);
+  margin-top: 0.7rem;
+}
+
+@keyframes sonicPulse {
+  0% {
+    box-shadow: 
+      inset 0 2px 0 rgba(255, 255, 255, 0.5),
+      0 8px 16px rgba(0, 0, 0, 0.5),
+      0 0 0 4px #FFD700,
+      0 0 20px rgba(255, 215, 0, 0.8);
+  }
+  100% {
+    box-shadow: 
+      inset 0 2px 0 rgba(255, 255, 255, 0.6),
+      0 10px 20px rgba(0, 0, 0, 0.6),
+      0 0 0 5px #FFD700,
+      0 0 30px rgba(255, 215, 0, 1);
+  }
+}
+
+/* Update responsive for Sonic theme */
 @media (max-width: 768px) {
-  .app-container {
-    flex-direction: column;
+  .menu-title {
+    font-size: 2.5rem !important;
   }
   
-  .left-column {
-    flex: none;
-    height: 40vh;
-    padding: 1rem;
+  .sonic-nav {
+    align-items: center;
+    padding-right: 1rem;
+    padding-left: 1rem;
   }
   
-  .right-column {
-    flex: 1;
-    padding: 2rem 1rem;
+  .sonic-item {
+    transform: translateY(calc(var(--item-index) * 10px)) !important;
   }
   
-  .main-navigation h1 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
+  .sonic-item:hover,
+  .sonic-item.active {
+    transform: translateY(calc(var(--item-index) * 10px)) scale(1.05) !important;
+  }
+  
+  .sonic-title {
+    font-size: 1.2rem;
   }
   
   .image-container {
     height: 30vh;
+    clip-path: polygon(20px 0%, 100% 0%, calc(100% - 20px) 100%, 0% 100%);
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-title {
+    font-size: 2rem !important;
   }
   
-  .main-image {
-    width: 120px;
-    height: 120px;
+  .sonic-title {
+    font-size: 1rem;
   }
-  
-  .image-overlay h2 {
-    font-size: 1.8rem;
-  }
+}
+
+/* Items that are off-screen or far from center */
+.sonic-item[style*="--scroll-offset"] {
+  opacity: calc(1 - abs(var(--scroll-offset)) * 0.15);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.2s ease !important;
+}
+
+/* Hide items that are too far off screen */
+.sonic-item[style*="--scroll-offset: 8"],
+.sonic-item[style*="--scroll-offset: -8"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Improve the navigation container scrolling */
+.sonic-nav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-right: 2rem;
+  margin-top: 1rem;
+  height: 60vh;
+  overflow: hidden;
+  mask: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 15%,
+    black 85%,
+    transparent 100%
+  );
+  -webkit-mask: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 15%,
+    black 85%,
+    transparent 100%
+  );
 }

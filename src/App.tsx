@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
-import homeLogo from './assets/home.svg'
-import servicesLogo from './assets/services.svg'
-import portfolioLogo from './assets/portfolio.svg'
-import contactLogo from './assets/contact.svg'
+import blogLogo from './assets/blog.svg'
+import chatLogo from './assets/chat.svg'
+import toyboxLogo from './assets/toybox.svg'
+import patchlogsLogo from './assets/patchlogs.svg'
 import ImageDisplay from './components/ImageDisplay'
 import NavigationMenu from './components/NavigationMenu'
 import SplashScreen from './components/SplashScreen'
@@ -15,34 +15,34 @@ function App() {
   
   const menuItems: MenuItem[] = [
     {
-      id: 'home',
-      title: 'Home',
-      image: homeLogo,
-      description: 'Welcome to our main page'
+      id: 'blog',
+      title: 'Blog',
+      image: blogLogo,
+      description: 'Welcome to our Blog page, bringing you information articles and updates straight from 2025 and beyond.'
     },
     {
       id: 'about',
       title: 'About',
       image: reactLogo,
-      description: 'Learn more about us'
+      description: 'Learn more about us at Ozone92, where we explore the future of technology and design.'
     },
     {
-      id: 'services',
-      title: 'Services',
-      image: servicesLogo,
-      description: 'Discover what we offer'
+      id: 'chat',
+      title: 'Chat',
+      image: chatLogo,
+      description: 'Chat with our futuristic robot sitting on this site of the internet switchboard.'
     },
     {
-      id: 'portfolio',
-      title: 'Portfolio',
-      image: portfolioLogo,
-      description: 'View our creative work'
+      id: 'toybox',
+      title: 'Toybox',
+      image: toyboxLogo,
+      description: 'Have a look at the toys we have created, from the 2025 toybox.'
     },
     {
-      id: 'contact',
-      title: 'Contact',
-      image: contactLogo,
-      description: 'Get in touch with us'
+      id: 'patchlogs',
+      title: 'Patch Logs',
+      image: patchlogsLogo,
+      description: 'Stay updated with the latest changes and improvements'
     }
   ]
 

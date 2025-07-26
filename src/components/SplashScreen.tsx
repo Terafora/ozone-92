@@ -33,8 +33,8 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
     <div className={`splash-screen ${animationPhase}`}>
       <div className="splash-content">
         <div className="gameboy-text">
-          <div className="text-line">OZONE</div>
-          <div className="text-line small">INDUSTRIES</div>
+          <div className="text-line">OZONE92</div>
+          <div className="text-line small">ECHO INDUSTRIES</div>
         </div>
         <div className="gameboy-logo">®</div>
       </div>
