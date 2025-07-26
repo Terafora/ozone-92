@@ -94,6 +94,7 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  margin-right: 15rem;
 }
 
 .nav-item {
@@ -221,7 +222,8 @@
   min-width: 25rem;
   /* for top right to bottom left listing with diagonal scroll offset */
   /* Fixed cascade position for X, scroll offset affects Y with diagonal movement */
-  transform: translateX(calc(var(--item-index) * -40px + var(--scroll-offset, 0) * -25px)) translateY(calc(var(--scroll-offset, 0) * 100px)) !important;
+  /* Center the items vertically so relativeIndex 0 appears in middle of container */
+  transform: translateX(calc(var(--item-index) * -40px + var(--scroll-offset, 0) * -25px)) translateY(calc(var(--scroll-offset, 0) * 100px + 30vh)) !important;
   transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55) !important;
   cursor: pointer;
   position: relative;
@@ -229,11 +231,11 @@
 }
 
 .sonic-item:hover {
-  transform: translateX(calc(var(--item-index) * -40px - 15px + var(--scroll-offset, 0) * -25px)) translateY(calc(var(--scroll-offset, 0) * 100px - 5px)) scale(1.05) !important;
+  transform: translateX(calc(var(--item-index) * -40px - 15px + var(--scroll-offset, 0) * -25px)) translateY(calc(var(--scroll-offset, 0) * 100px + 30vh - 5px)) scale(1.05) !important;
 }
 
 .sonic-item.active {
-  transform: translateX(calc(var(--item-index) * -40px - 25px + var(--scroll-offset, 0) * -25px)) translateY(calc(var(--scroll-offset, 0) * 100px - 8px)) scale(1.1) !important;
+  transform: translateX(calc(var(--item-index) * -40px - 25px + var(--scroll-offset, 0) * -25px)) translateY(calc(var(--scroll-offset, 0) * 100px + 30vh - 8px)) scale(1.1) !important;
 }
 
 .sonic-item-bg {
@@ -349,19 +351,6 @@
   .sonic-title {
     font-size: 1rem;
   }
-}
-
-/* Items that are off-screen or far from center */
-.sonic-item[style*="--scroll-offset"] {
-  opacity: calc(1 - abs(var(--scroll-offset)) * 0.15);
-  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.2s ease !important;
-}
-
-/* Hide items that are too far off screen */
-.sonic-item[style*="--scroll-offset: 8"],
-.sonic-item[style*="--scroll-offset: -8"] {
-  opacity: 0;
-  pointer-events: none;
 }
 
 /* Improve the navigation container scrolling */
