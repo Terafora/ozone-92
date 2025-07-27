@@ -24,25 +24,38 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
     return menuItems[index]
   }
 
-  // Update selected item whenever scroll changes
+  // Set initial selected item only once when component mounts
   useEffect(() => {
-    const selectedItem = getSelectedMenuItem()
-    console.log(`Scroll changed to ${scrollOffset}, selected: ${selectedItem.title}`)
-    onItemSelect(selectedItem)
-  }, [scrollOffset, menuItems]) // Removed onItemSelect to prevent infinite loops
+    if (menuItems.length > 0) {
+      const initialItem = getSelectedMenuItem()
+      onItemSelect(initialItem)
+    }
+  }, [menuItems.length]) // Only depend on menuItems.length to avoid infinite loops
 
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault()
       const delta = e.deltaY > 0 ? 1 : -1
-      setScrollOffset(prev => prev + delta)
+      const newScrollOffset = scrollOffset + delta
+      setScrollOffset(newScrollOffset)
+      
+      // Calculate selected item with the NEW scroll offset
+      const index = ((newScrollOffset % menuItems.length) + menuItems.length) % menuItems.length
+      const selectedItem = menuItems[index]
+      onItemSelect(selectedItem)
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
         e.preventDefault()
         const delta = e.key === 'ArrowDown' ? 1 : -1
-        setScrollOffset(prev => prev + delta)
+        const newScrollOffset = scrollOffset + delta
+        setScrollOffset(newScrollOffset)
+        
+        // Calculate selected item with the NEW scroll offset
+        const index = ((newScrollOffset % menuItems.length) + menuItems.length) % menuItems.length
+        const selectedItem = menuItems[index]
+        onItemSelect(selectedItem)
       }
     }
 
@@ -59,16 +72,9 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
       }
       window.removeEventListener('keydown', handleKeyDown)
     }
-  }, []) // Empty dependency array - event handlers don't need to be recreated
+  }, [scrollOffset, menuItems]) // Include dependencies for the event handlers
 
-  // Set initial selected item and ensure it matches scroll position
-  useEffect(() => {
-    if (menuItems.length > 0) {
-      const initialItem = getSelectedMenuItem()
-      console.log(`Initial item: ${initialItem.title}`) // Debug log
-      onItemSelect(initialItem)
-    }
-  }, [menuItems]) // Removed onItemSelect to avoid infinite loops
+  // Remove the duplicate useEffect that was causing infinite loops
 
   return (
     <div className="right-column sonic-menu">
@@ -96,8 +102,10 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
                 onClick={() => {
                   // Calculate the scroll offset needed to center this item
                   const targetScrollOffset = globalPosition
-                  console.log(`Click: Setting scroll to ${targetScrollOffset} for item ${item.title}`) // Debug log
                   setScrollOffset(targetScrollOffset)
+                  
+                  // Update selected item when clicking
+                  onItemSelect(item)
                 }}
                 style={{ 
                   '--item-index': visibleIndex, // Fixed cascade position
